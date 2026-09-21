@@ -1,0 +1,114 @@
+package com.example.csc402lab2
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+val ScreenBgColor = Color(0xFFF5F5F5)
+val NavyColor = Color(0xFF001F3F)
+val GreenChipBgColor = Color(0xFFE8F5E9)
+val GreenChipTextColor = Color(0xFF2E7D32)
+
+@Composable
+fun StatItem(value: String, label: String, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = value, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+        Text(text = label, color = Color.Gray, fontSize = 12.sp)
+    }
+}
+
+@Composable
+fun StudentIdScreen(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(ScreenBgColor)
+            .padding(16.dp)
+    ) {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clip(CircleShape)
+                            .background(NavyColor),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = "NA", color = Color.White, fontWeight = FontWeight.Bold)
+                    }
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Column {
+                        Text(text = "Noura Al-Harbi", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        Text(text = "Computer Science", color = Color.Gray, fontSize = 14.sp)
+                        Text(
+                            text = "2024117845",
+                            fontFamily = FontFamily.Monospace,
+                            color = Color.Gray,
+                            fontSize = 12.sp
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Surface(color = GreenChipBgColor, shape = RoundedCornerShape(50)) {
+                                Text(
+                                    "Level 4",
+                                    color = GreenChipTextColor,
+                                    fontSize = 10.sp,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                )
+                            }
+                            Surface(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(50)) {
+                                Text(
+                                    "CSHJ",
+                                    color = Color.DarkGray,
+                                    fontSize = 10.sp,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+                HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f))
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    StatItem(value = "4.42", label = "GPA")
+                    StatItem(value = "78", label = "Credits")
+                    StatItem(value = "Active", label = "Status")
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun StudentIdScreenPreview() {
+    StudentIdScreen()
+}
