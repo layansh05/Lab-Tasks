@@ -1,0 +1,85 @@
+package com.example.csc402lab2
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+@Composable
+fun AttendanceCounter(modifier: Modifier = Modifier) {
+    var count by remember { mutableStateOf(0) }
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(ScreenBgColor)
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("STUDENTS PRESENT", color = Color.Gray, fontWeight = FontWeight.Medium, fontSize = 12.sp)
+        Spacer(modifier = Modifier.height(8.dp))
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(32.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = count.toString(), fontSize = 52.sp, fontWeight = FontWeight.Bold)
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            Button(
+                onClick = { if (count > 0) count-- },
+                enabled = count > 0,
+                colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)
+            ) {
+                Text("-", fontSize = 20.sp, color = Color.Black)
+            }
+            Button(
+                onClick = { count++ },
+                colors = ButtonDefaults.buttonColors(containerColor = GreenChipTextColor)
+            ) {
+                Text("+", fontSize = 20.sp, color = Color.White)
+            }
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Button(
+            onClick = { count = 0 },
+            enabled = count > 0
+        ) {
+            Text("Reset")
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = if (count == 0) "Tap + to check a student in." else "$count of 30 students checked in.",
+            color = Color.Gray,
+            fontSize = 14.sp
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AttendanceCounterPreview() {
+    AttendanceCounter()
+}
